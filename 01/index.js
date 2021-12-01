@@ -4,7 +4,9 @@ const path = require('path')
 const textInput = fs.readFileSync(path.join(__dirname, 'input.txt'), 'utf-8')
 const formattedInput = textInput.split('\n').map(i => parseInt(i))
 
-const partOne = input => formattedInput.reduce(
+
+/** PART I */
+const partOne = input => input.reduce(
     (acc, value) => {
         if (acc.old === null) {
             return { old: value, numberOfIncrease: 0 }
@@ -15,3 +17,16 @@ const partOne = input => formattedInput.reduce(
 ).numberOfIncrease
 
 console.log(partOne(formattedInput))
+
+
+
+/**  PART II */
+const partTwo = input => partOne(input.reduce(
+    (acc, value, index, values) => {
+        if (index + 2 >= values.length) return acc;
+        const res = value + values[index + 1] + values[index + 2];
+        return [...acc, res];
+    }, []
+))
+
+console.log(partTwo(formattedInput));
