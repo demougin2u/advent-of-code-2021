@@ -25,6 +25,18 @@ console.log(partOne(formattedInput))
 
 
 /**  PART II */
-const partTwo = input => input
+const partTwo = input => {
+    const res = input.reduce(
+        (acc, move) => {
+            switch(move.type) {
+                case "forward": return {...acc, x: acc.x + move.value, depth: acc.depth + move.value * acc.aim }
+                case "up": return { ...acc, aim: acc.aim - move.value }
+                case "down": return { ...acc, aim: acc.aim + move.value }
+            }
+        },
+        { depth: 0, aim: 0, x: 0 }
+    )
+    return res.x * res.depth
+}
 
-// console.log(partTwo(formattedInput));
+console.log(partTwo(formattedInput));
